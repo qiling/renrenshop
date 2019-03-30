@@ -1,5 +1,6 @@
 {template '_header'}
 <link rel="stylesheet" type="text/css" href="../addons/ewei_shopv2/plugin/live/static/css/room.css?v={php echo time()}">
+<link rel="stylesheet" type="text/css" href="../addons/ewei_shopv2/plugin/live/static/css/video.css?v={php echo time()}">
 <style>
     {if $fullscreen}
     .fullscreen .block-video .video {
@@ -59,7 +60,10 @@
         </div>
         <div class="block-video" style="background-image: url('{$poster}');">
 
-            <video class="video" id="player" src="{$video}" webkit-playsinline="true" playsinline="true" x-webkit-airplay="true"  x5-video-player-type="h5" x5-video-player-fullscreen="true"></video>
+            <video id="player" class="video-js vjs-default-skin vjs-big-play-centered video" src="{$video}" x-webkit-airplay="allow" poster="" preload="auto" webkit-playsinline playsinline x5-video-player-type="h5" x5-video-player-fullscreen="true">
+                <source src="{$video}"  type="application/x-mpegURL">
+                <source src="{$video}"  type="application/x-mpegURL">
+            </video>
 
             <div class="block-info">
                 <div class="live-info">

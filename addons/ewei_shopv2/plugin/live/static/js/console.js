@@ -1,4 +1,4 @@
-define([], function () {
+﻿define([], function () {
     var modal = {
         wsClient: false,
         wsConfig: {},
@@ -15,11 +15,12 @@ define([], function () {
         modal.wsConfig = params.wsConfig || {};
         modal.initWs();
         modal.initClick();
+
         setInterval(function () {
             if (modal.wsConnected) {
                 modal.wsSend('communication', {toUser: 'system'})
             }
-        }, 20000)
+        }, 200)
     };
     modal.initWs = function () {
         if (!modal.wsConfig || !modal.wsConfig.address) {
@@ -29,12 +30,18 @@ define([], function () {
             modal.liveMsg('notice', '初始化通讯服务...')
         }
         var wsConfig = modal.wsConfig;
+
         var wsClient = new WebSocket(wsConfig.address);
+
         wsClient.onopen = function () {
-            modal.wsSend('login', {toUser: 'system'})
+
+           modal.wsSend('login', {toUser: 'system'})
         };
+
         wsClient.onmessage = function (evt) {
+
             var data = JSON.parse(evt.data);
+
             if (data.type == 'connected') {
                 modal.liveMsg('notice', '聊天服务器连接成功...');
                 modal.wsConnected = true;
@@ -183,23 +190,28 @@ define([], function () {
             if (!modal.wsConnected) {
                 return
             }
+
             modal.liveMsg('notice', '与通讯服务器断开 <a class="btn-reconnect">点击重连</a>');
             modal.wsConnected = false
         };
         wsClient.onerror = function (evt) {
+
             modal.liveMsg('notice', '与通讯服务器连接失败 <a class="btn-reconnect">点击重连</a>');
             modal.wsConnected = false
         };
         modal.wsClient = wsClient
     };
     modal.wsSend = function (type, obj) {
+
         if (!type || $.isEmptyObject(obj)) {
             return false
         }
+
         if (type != 'login' && !modal.wsConnected) {
             tip.msgbox.err('与通讯服务器连接失败');
             return false
         }
+
         var wsConfig = modal.wsConfig;
         obj.type = type;
         obj.role = 'manage';
@@ -213,6 +225,7 @@ define([], function () {
         if (modal.msgAt) {
             obj.at = modal.msgAt
         }
+
         modal.wsClient.send(JSON.stringify(obj));
         return obj
     };
@@ -435,6 +448,7 @@ define([], function () {
             }
         });
         $('#btn-send').click(function () {
+
             if (!modal.wsConnected) {
                 tip.msgbox.err('通讯服务器连接失败');
                 return

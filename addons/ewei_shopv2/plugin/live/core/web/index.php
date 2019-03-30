@@ -10,7 +10,6 @@ class Index_EweiShopV2Page extends PluginWebPage
 		//phpinfo();die;
 		global $_W;
 		$wsConfig = json_encode(array('address' => $this->model->getWsAddress()));
-
 		$plugin = pdo_fetch('select `desc` from ' . tablename('ewei_shop_plugin') . ' where `identity`=:identyty limit  1', array(':identyty' => 'live'));
 		$livenum = pdo_fetchcolumn('SELECT count(0) FROM ' . tablename('ewei_shop_live') . 'WHERE uniacid=:uniacid ', array(':uniacid' => $_W['uniacid']));
 		$livingnum = pdo_fetchcolumn('SELECT count(0) FROM ' . tablename('ewei_shop_live') . 'WHERE uniacid=:uniacid AND living=1 ', array(':uniacid' => $_W['uniacid']));
