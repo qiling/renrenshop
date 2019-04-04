@@ -34,6 +34,7 @@ class Detail_EweiShopV2Page extends MobilePage
 				}
 			}
 		}
+		
 		if( p("task") ) 
 		{
 			if( !empty($task_id) ) 
@@ -250,10 +251,10 @@ class Detail_EweiShopV2Page extends MobilePage
 			}
 		}
 		$member = m("member")->getMember($openid);
-		if( empty($member["updateaddress"]) ) 
+		if( empty($member["updateaddress"]) )
 		{
 			$address_list = pdo_fetchall("select id,datavalue from " . tablename("ewei_shop_member_address") . " where openid=:openid and uniacid=:uniacid", array( ":uniacid" => $uniacid, ":openid" => $openid ));
-			if( !empty($address_list) ) 
+			if( !empty($address_list) )
 			{
 				$areas = m("common")->getAreas();
 				$datacode = array( );
@@ -357,6 +358,7 @@ class Detail_EweiShopV2Page extends MobilePage
 		$buyshow = 0;
 		if( $goods["buyshow"] == 1 ) 
 		{
+
 			$sql = "select o.id from " . tablename("ewei_shop_order") . " o left join " . tablename("ewei_shop_order_goods") . " g on o.id = g.orderid";
 			$sql .= " where o.openid=:openid and g.goodsid=:id and o.status>0 and o.uniacid=:uniacid limit 1";
 			$buy_goods = pdo_fetch($sql, array( ":openid" => $openid, ":id" => $id, ":uniacid" => $_W["uniacid"] ));
@@ -366,6 +368,7 @@ class Detail_EweiShopV2Page extends MobilePage
 				$goods["buycontent"] = m("ui")->lazy($goods["buycontent"]);
 			}
 		}
+
 		$goods["unit"] = (empty($goods["unit"]) ? "件" : $goods["unit"]);
 		$dispatch_areas = m("dispatch")->getNoDispatchAreas($goods);
 		$citys = (empty($dispatch_areas) ? "" : $dispatch_areas["citys"]);

@@ -1505,6 +1505,7 @@ class Create_EweiShopV2Page extends MobileLoginPage
 		}
 		$createInfo["gift_price"] = (is_array($gift_price) && empty($gift_price) != true ? min($gift_price) : 0);
 		$createInfo["show_card"] = $show_card;
+		//var_dump($createInfo);die;
 		include($this->template());
 	}
 	public function getcouponprice() 
@@ -2341,6 +2342,7 @@ class Create_EweiShopV2Page extends MobileLoginPage
 	}
 	public function submit() 
 	{
+
 		global $_W;
 		global $_GPC;
 		$openid = $_W["openid"];
@@ -3684,6 +3686,7 @@ class Create_EweiShopV2Page extends MobileLoginPage
 		}
 		if( $multiple_order == 0 ) 
 		{
+
 			$order_merchid = current(array_keys($merch_array));
 			$order["merchid"] = intval($order_merchid);
 			$order["isparent"] = 0;
@@ -3854,6 +3857,7 @@ class Create_EweiShopV2Page extends MobileLoginPage
 				{
 					$order_goods["realprice"] = $order_goods["realprice"] - $order["couponprice"];
 				}
+//				var_dump($order_goods);die;
 				pdo_insert("ewei_shop_order_goods", $order_goods);
 				if( $goods["seckillinfo"] && $goods["seckillinfo"]["status"] == 0 ) 
 				{
